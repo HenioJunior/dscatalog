@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 //Camada de acesso a dados
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface  CategoryRepository extends JpaRepository<Category, Long> {
 
 }
