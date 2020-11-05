@@ -14,7 +14,7 @@ type FormEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTe
 
 const Form = () => {
   const [formData, setFormData] = useState<FormState>({
-    name: 'Computador',
+    name: '',
     price: '',
     category: '',
     description: ''
