@@ -20,6 +20,9 @@ const Routes = () => (
             <Route path="/products/:productId">
             <ProductDetails />
             </Route>
+            <Route>
+                
+            </Route>
             <Redirect from="/admin" to="/admin/products" exact />
             <Route path="/admin">
             <Admin />
