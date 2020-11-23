@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Card from '../Card';
 
 const List = () => {
     const history = useHistory();
@@ -11,7 +12,12 @@ const List = () => {
         <div className="admin-products-list">
             <button className="btn btn-primary btn-lg" onClick={handleCreate}>
                 ADICIONAR
-    </button>
+            </button>
+            <div className="admin-list-container">
+                <Card />
+                <Card />
+                <Card />
+            </div>
         </div>
     )
 }
