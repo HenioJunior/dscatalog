@@ -17,6 +17,11 @@ const Card = () => {
           Computador i7
         </h3>
         <ProductPrice price={40.5} />
+        <div>
+        <span className="badge badge-pill badge-secondary mr-2">Categoria1</span>
+        <span className="badge badge-pill badge-secondary mr-2">Categoria2</span>
+        <span className="badge badge-pill badge-secondary mr-2">Categoria3</span>
+        </div>
       </div>
       <div className="col-3 pt-3 pr-5">
         <button
