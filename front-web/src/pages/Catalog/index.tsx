@@ -8,7 +8,6 @@ import './styles.scss';
 import Pagination from 'core/components/Pagination';
 
 const Catalog = () => {
-
     const [productsResponse, setProductsResponse] = useState<ProductsResponse>();
     const [isLoading, setIsLoading] = useState(false);
     const [activePage, setActivePage] = useState(0);
