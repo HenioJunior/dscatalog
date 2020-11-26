@@ -1,5 +1,6 @@
+import { Category } from 'core/types/Product';
 import { makePrivateRequest, makeRequest } from 'core/utils/request';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
@@ -18,19 +19,15 @@ type ParamsType = {
   productId: string;
 }
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-]
-
 const Form = () => {
   const { register, handleSubmit, errors, setValue } = useForm<FormState>();
   const history = useHistory();
   const { productId } = useParams<ParamsType>();
+  const [isLoadingCategories, setIsLoadingCategories] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
   const isEditing = productId !== 'create';
   const formTitle = isEditing ? 'Editar produto' : 'Cadastrar um produto';
-
+  
   useEffect(() => {
     if(isEditing){
       makeRequest({ url: `/products/${productId}` })
@@ -42,6 +39,13 @@ const Form = () => {
         })
     }
   }, [productId, isEditing, setValue]);
+
+  useEffect(() => {
+    setIsLoadingCategories(true);
+    makeRequest({ url: '/categories' })
+    .then(response => setCategories(response.data.content))
+    .finally(()=> setIsLoadingCategories(false));
+  }, []);
 
   const onSubmit = (data: FormState) => {
    makePrivateRequest({
@@ -86,7 +90,9 @@ const Form = () => {
         </div>
         <div className="margin-bottom-30">
           <Select
-          options={options}
+          options={categories}
+          getOptionLabel={(option: Category) => option.name}
+          getOptionValue={(option: Category) => String(option.id)}
           classNamePrefix="categories-select"
           placeholder="Categoria"
           isMulti
