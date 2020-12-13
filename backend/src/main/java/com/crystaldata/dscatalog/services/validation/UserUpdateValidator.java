@@ -1,19 +1,20 @@
 package com.crystaldata.dscatalog.services.validation;
 
-import com.crystaldata.dscatalog.dto.UserInsertDTO;
-import com.crystaldata.dscatalog.dto.UserUpdateDTO;
-import com.crystaldata.dscatalog.entities.User;
-import com.crystaldata.dscatalog.repositories.UserRepository;
-import com.crystaldata.dscatalog.resources.exceptions.FieldMessage;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.HandlerMapping;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.HandlerMapping;
+
+import com.crystaldata.dscatalog.dto.UserUpdateDTO;
+import com.crystaldata.dscatalog.entities.User;
+import com.crystaldata.dscatalog.repositories.UserRepository;
+import com.crystaldata.dscatalog.resources.exceptions.FieldMessage;
 
 public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid, UserUpdateDTO> {
 
