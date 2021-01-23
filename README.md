@@ -1,1 +1,1 @@
-# dscatalog-test
+# dscatalog
