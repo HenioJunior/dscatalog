@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.crystaldata.dscatalog.repositories.ProductRepository;
 import com.crystaldata.dscatalog.services.ProductService;
+import com.crystaldata.dscatalog.services.exceptions.ResourceNotFoundException;
 
 @ExtendWith(SpringExtension.class)
 public class ProductServiceTests {
@@ -36,6 +37,16 @@ public class ProductServiceTests {
 	}
 	
 	@Test
+	public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
+		
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+			service.delete(nonExistingId);	
+		});
+		
+		Mockito.verify(repository, Mockito.times(1)).deleteById(nonExistingId);
+	}
+	
+	@Test
 	public void deleteShouldDoNothingWhenIdExists () {
 		
 		Assertions.assertDoesNotThrow(() -> {
@@ -44,5 +55,4 @@ public class ProductServiceTests {
 		
 		Mockito.verify(repository, Mockito.times(1)).deleteById(existingId);
 	}
-	
 }
