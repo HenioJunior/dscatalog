@@ -14,5 +14,4 @@ public class ProductFactory {
 	public static ProductDTO createProductDTO() {
 		return new ProductDTO(createProduct());
 	}
-
 }

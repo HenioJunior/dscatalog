@@ -1,5 +1,7 @@
 package com.crystaldata.dscatalog.tests.repositories;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -11,6 +13,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import com.crystaldata.dscatalog.entities.Category;
 import com.crystaldata.dscatalog.entities.Product;
 import com.crystaldata.dscatalog.repositories.ProductRepository;
 import com.crystaldata.dscatalog.tests.factory.ProductFactory;
@@ -21,11 +24,12 @@ public class ProductRepositoryTests {
 
     @Autowired
     private ProductRepository repository;
-    
+        
     private Long existingId;
     private Long nonExistingId;
     private Long countTotalProducts;
     private Long countPCGamerProducts;
+    private Long countCategory3Products;
     private PageRequest pageRequest;
     
     @BeforeEach
@@ -34,8 +38,42 @@ public class ProductRepositoryTests {
     	nonExistingId = 1000L;
     	countTotalProducts = 25L;
     	countPCGamerProducts = 21L;
+    	countCategory3Products = 23L;
     	pageRequest = PageRequest.of(0, 10);
     }
+    
+    @Test
+    public void findShouldReturnOnlySelectedCategoryWhenCategoryInformed() {
+    	
+    	List<Category> categories = new ArrayList<>();
+    	categories.add(new Category(3L, null));
+    	
+    	Page<Product> result = repository.find(categories, "", pageRequest);
+    	    	
+    	Assertions.assertFalse(result.isEmpty());
+    	Assertions.assertEquals(countCategory3Products, result.getTotalElements());
+    }
+      
+    
+    @Test
+    public void findShouldReturnAllProductsWhenCategoryNotInformed() {
+    	
+    	List<Category> categories = null;
+    	
+    	Page<Product> result = repository.find(categories, "", pageRequest);
+    	    	
+    	Assertions.assertFalse(result.isEmpty());
+    	Assertions.assertEquals(countTotalProducts, result.getTotalElements());
+    }
+    
+    @Test
+    public void findShouldReturnNothingWhenNameDoesNotExist() {
+    	String name = "Camera";
+    	
+    	Page<Product> result = repository.find(null, name, pageRequest);
+    	
+    	Assertions.assertTrue(result.isEmpty());
+   }
     
     @Test
     public void findShouldReturnAllProductsWhenNameExistsIsEmpty() {
@@ -86,6 +124,14 @@ public class ProductRepositoryTests {
     }
 
     @Test
+    public void deleteShouldEmptyResultDataAccessExceptionWhenIdDoesNotExists() {
+
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+        	repository.deleteById(nonExistingId);	
+        });
+    }
+    
+    @Test
     public void deleteShouldDeleteObjectWhenIdExists() {
 
         repository.deleteById(existingId);
@@ -93,13 +139,5 @@ public class ProductRepositoryTests {
         Optional<Product> result = repository.findById(existingId);
 
         Assertions.assertFalse(result.isPresent());
-    }
-    
-    @Test
-    public void deleteShouldEmptyResultDataAccessExceptionWhenIdDoesNotExists() {
-
-        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-        	repository.deleteById(nonExistingId);	
-        });
     }
 }
