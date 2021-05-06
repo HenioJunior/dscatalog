@@ -23,6 +23,7 @@ const Form = () => {
   const { register, handleSubmit, errors, setValue } = useForm<FormState>();
   const history = useHistory();
   const { productId } = useParams<ParamsType>();
+  // eslint-disable-next-line
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const isEditing = productId !== 'create';
