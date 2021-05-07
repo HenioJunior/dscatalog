@@ -1,7 +1,7 @@
 .categories-select__control {
-  height: 50px !important;
+  height: 50px;
   border-radius: 10px !important;
-  border: 1px solid #E1E1E1 !important;
+  border: 1px solid #E1E1E1;
 }
 
 .categories-select__indicator-separator {
@@ -9,8 +9,5 @@
 }
 
 .categories-select__placeholder {
-  color: #9E9E9E !important;
-  font-size: 18px;
-  line-height: 25px;
-  letter-spacing: -0.015em;
+  color: #9E9E9E;
 }
