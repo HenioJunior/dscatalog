@@ -13,11 +13,6 @@ Em desenvolvimento... :)
 - ReactJS
 - Apex Charts
 
-## Implantação em produção
-- Back end: Heroku
-- Front end web: Netlify
-- Banco de dados: Postgresql
-
 # Como executar o projeto
 
 ## Back end
